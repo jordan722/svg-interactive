@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Animation
+    </title>
+  </head>
+  
+  <body>
+    <svg id="vimage" height="300" width="500" style="border: 1px solid;" xmlns="http://www.w3.org/2000/svg"></svg><br>
+    <button type="button" id="move"> Move </button>
+    <button type="button" id="clear"> Clear </button>
+    
+    
+    <script src="animate.js" type="text/javascript"></script>
+  </body>
+</html>
