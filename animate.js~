@@ -1,0 +1,38 @@
+var s = document.getElementById("vimage");
+var height = s.getAttribute("height");
+var width = s.getAttribute("width");
+
+var clear = function(){
+    while(s.lastChild){
+	s.removeChild(s.lastChild);
+    }
+};
+
+var circleClick = function(e){
+    console.log("CIRCLE" + this);
+    this.setAttribute("fill","purple");
+    e.stopPropagation();
+}
+
+var makeDot = function(x,y){
+    var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    
+    c.setAttribute("cx", x);
+    c.setAttribute("cy", y);
+    c.setAttribute("fill","blue");
+    c.setAttribute("r", 20);
+    c.addEventListener("click", circleClick);
+    return c
+};
+
+
+
+var drawDot = function(e){
+    s.appendChild(makeDot(e.offsetX, e.offsetY));
+}
+    
+
+s.addEventListener("click", drawDot);
+
+var clearb = document.getElementById("clear");
+clearb.addEventListener("click", clear);
