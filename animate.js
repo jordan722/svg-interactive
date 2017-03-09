@@ -10,8 +10,19 @@ var clear = function(){
 
 var circleClick = function(e){
     console.log("CIRCLE" + this);
-    this.setAttribute("fill","purple");
-    e.stopPropagation();
+    if (this.getAttribute("fill") == "blue"){
+	this.setAttribute("fill","purple");
+	e.stopPropagation();
+    }
+    else {
+	this.remove();
+	var x = Math.floor(Math.random() * 480);
+	var y = Math.floor(Math.random() * 280);
+
+	var c = makeDot(x,y);
+	s.appendChild(c);
+	e.stopPropagation();
+    }
 }
 
 var makeDot = function(x,y){
@@ -47,13 +58,14 @@ var moveCircle = function(){
 
 	for (circle in circles) {
 	    var x = circle.getAttribute("x");
+	    var y = circle.getAttribute("y");
 	    if (x == -10 || x == width - 120)
 		xinc *= -1;
 	    if (y == -15 || y == height - 60)
 		yinc *= -1;
-	    i.setAttribute("x",x);
-	    i.setAttribute("y",y);
-	    s.appendChild(i);
+	    circle.setAttribute("x",x);
+	    circle.setAttribute("y",y);
+	    s.appendChild(circle);
 	}
 	
 	rid = window.requestAnimationFrame( DVDfunc );
