@@ -1,6 +1,7 @@
 var s = document.getElementById("vimage");
 var height = s.getAttribute("height");
 var width = s.getAttribute("width");
+var rid;
 
 var clear = function(){
     while(s.lastChild){
@@ -30,10 +31,12 @@ var makeDot = function(x,y){
     
     c.setAttribute("cx", x);
     c.setAttribute("cy", y);
+    c.setAttribute("dx", "1");
+    c.setAttribute("dy","1");
     c.setAttribute("fill","blue");
-    c.setAttribute("r", 20);
+    c.setAttribute("r", "20");
     c.addEventListener("click", circleClick);
-    return c
+    return c;
 };
 
 
@@ -42,37 +45,34 @@ var drawDot = function(e){
     s.appendChild(makeDot(e.offsetX, e.offsetY));
 }
 
-var moveCircle = function(){
-    var x = Math.floor(Math.random() * 480);
-    var y = Math.floor(Math.random() * 280);
-    var xinc = 1;
-    var yinc = 1;
+var move = function(){
     window.cancelAnimationFrame(rid);
-    
-    var DVDfunc = function(){
-	x += xinc;
-	y += yinc;
+   
+    var moveCircle = function(){
 	
 	var circles = document.getElementsByTagName('circle');
-	var circle;
 
-	for (circle in circles) {
-	    var x = circle.getAttribute("x");
-	    var y = circle.getAttribute("y");
-	    if (x == -10 || x == width - 120)
-		xinc *= -1;
-	    if (y == -15 || y == height - 60)
-		yinc *= -1;
-	    circle.setAttribute("x",x);
-	    circle.setAttribute("y",y);
-	    s.appendChild(circle);
+	for (var i = 0; i < circles.length; i++) {
+	    var x = circles[i].getAttribute("cx");
+	    var y = circles[i].getAttribute("cy");
+	    var dx = circles[i].getAttribute("dx");
+	    var dy = circles[i].getAttribute("dy");
+	    if (x < 20 || x > width - 20)
+		dx *= -1;
+	    if (y < 20 || y > height - 20)
+		dy *= -1;
+	    x += dx;
+	    y += dy;
+	    circles[i].setAttribute("cx",x);
+	    circles[i].setAttribute("cy",y);
+	    console.log(x);
 	}
 	
-	rid = window.requestAnimationFrame( DVDfunc );
+	rid = window.requestAnimationFrame( moveCircle );
     };
-    DVDfunc();
+    moveCircle();
 }
-    
+
 
 s.addEventListener("click", drawDot);
 
