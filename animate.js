@@ -53,18 +53,20 @@ var move = function(){
 	var circles = document.getElementsByTagName('circle');
 
 	for (var i = 0; i < circles.length; i++) {
-	    var x = circles[i].getAttribute("cx");
-	    var y = circles[i].getAttribute("cy");
-	    var dx = circles[i].getAttribute("dx");
-	    var dy = circles[i].getAttribute("dy");
+	    var x = parseInt(circles[i].getAttribute("cx"));
+	    var y = parseInt(circles[i].getAttribute("cy"));
+	    var dx = parseInt(circles[i].getAttribute("dx"));
+	    var dy = parseInt(circles[i].getAttribute("dy"));
 	    if (x < 20 || x > width - 20)
 		dx *= -1;
 	    if (y < 20 || y > height - 20)
 		dy *= -1;
 	    x += dx;
 	    y += dy;
-	    circles[i].setAttribute("cx",x);
+	    circles[i].setAttribute("cx", x);
 	    circles[i].setAttribute("cy",y);
+	    circles[i].setAttribute("dx",dx);
+	    circles[i].setAttribute("dy",dy);
 	    console.log(x);
 	}
 	
