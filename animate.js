@@ -67,7 +67,10 @@ var move = function(){
 	    circles[i].setAttribute("cy",y);
 	    circles[i].setAttribute("dx",dx);
 	    circles[i].setAttribute("dy",dy);
-	    console.log(x);
+	    if (x == width/2){
+		splitCircle(circles[i]);
+	    }
+
 	}
 	
 	rid = window.requestAnimationFrame( moveCircle );
@@ -75,6 +78,25 @@ var move = function(){
     moveCircle();
 }
 
+var splitCircle = function(c){
+    var x = parseInt(c.getAttribute("cx"));
+    var y = parseInt(c.getAttribute("cy"));
+    var dx = parseInt(c.getAttribute("dx"));
+    var dy = parseInt(c.getAttribute("dy"));
+    var r = parseInt(c.getAttribute("r"));
+    r = r/2;
+    c.setAttribute("r",r);
+    if(r < 2){
+	c.remove();
+    }
+    else{
+	c2 = makeDot(x,y);
+	c2.setAttribute("dx", dx * -1);
+	c2.setAttribute("dy", dy * -1);
+	c2.setAttribute("r", r);
+	s.appendChild(c2);
+    }
+}
 
 s.addEventListener("click", drawDot);
 
